@@ -7,6 +7,13 @@ const transporter = nodemailer.createTransport({
     pass: process.env.EMAIL_PASS,
   },
 });
+transporter.verify(function (error, success) {
+  if (error) {
+    console.log("❌ Transport Error:", error);
+  } else {
+    console.log("✅ SMTP Server is ready");
+  }
+});
 
 const sendEmergencyEmail = async (report, aiAnalysis) => {
   const mailOptions = {
