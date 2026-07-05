@@ -29,13 +29,18 @@ exports.createReport = async (req, res) => {
 
     // AI Analysis
     const aiResult = await analyzeDisaster(reportData);
+
+reportData.aiAnalysis = aiResult;
+
+// Save to MongoDB FIRST
+const report = await Report.create(reportData);
+
+// Send email after saving
+try {
     await sendEmergencyEmail(reportData, aiResult);
-
-    // Save AI Analysis
-    reportData.aiAnalysis = aiResult;
-
-    // Save to MongoDB
-    const report = await Report.create(reportData);
+} catch (err) {
+    console.log("Email Error:", err.message);
+}
 
     res.status(201).json({
       success: true,
