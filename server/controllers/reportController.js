@@ -45,7 +45,13 @@ console.log("➡️ About to send email");
 
 await sendEmergencyEmail(reportData, aiResult);
 
-console.log("✅ sendEmergencyEmail finished");
+const info = await transporter.sendMail(mailOptions);
+
+console.log("Accepted:", info.accepted);
+console.log("Rejected:", info.rejected);
+console.log("Envelope:", info.envelope);
+console.log("Message ID:", info.messageId);
+console.log("Response:", info.response);;
 
     res.status(201).json({
       success: true,
