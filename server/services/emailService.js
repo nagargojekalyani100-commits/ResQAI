@@ -22,7 +22,7 @@ const sendEmergencyEmail = async (report, aiAnalysis) => {
     from: process.env.EMAIL_USER,
 
     // Change this to the email that should receive alerts.
-    to: process.env.EMAIL_USER,
+    to: "nagargojekalyani100@gmail.com",
 
     subject: `🚨 Disaster Alert - ${report.disasterType}`,
 
@@ -63,7 +63,14 @@ const sendEmergencyEmail = async (report, aiAnalysis) => {
 
   try {
   const info = await transporter.sendMail(mailOptions);
-  console.log("✅ Email sent:", info.response);
+
+console.log("=========== EMAIL INFO ===========");
+console.log("Accepted:", info.accepted);
+console.log("Rejected:", info.rejected);
+console.log("Envelope:", info.envelope);
+console.log("Message ID:", info.messageId);
+console.log("Response:", info.response);
+console.log("=================================");
 } catch (err) {
   console.error("❌ Email Error:", err);
 }
