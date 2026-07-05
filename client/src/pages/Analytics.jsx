@@ -13,7 +13,7 @@ function Analytics() {
 
   const fetchReports = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/reports");
+      const res = await axios.get("https://resqai-azyw.onrender.com/api/reports");
       setReports(res.data.reports);
     } catch (error) {
       console.log(error);

@@ -15,7 +15,7 @@ function Admin() {
 
   const fetchReports = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/reports");
+      const res = await axios.get("https://resqai-azyw.onrender.com/api/reports");
       setReports(res.data.reports);
     } catch (error) {
       console.log(error);
@@ -30,7 +30,7 @@ function Admin() {
     if (!confirmDelete) return;
 
     try {
-      await axios.delete(`http://localhost:5000/api/report/${id}`);
+      await axios.delete(`https://resqai-azyw.onrender.com/api/report/${id}`);
 
       alert("Report Deleted Successfully");
 

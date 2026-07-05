@@ -18,7 +18,7 @@ function VolunteerForm() {
 
   const fetchVolunteers = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/volunteers");
+      const res = await axios.get("https://resqai-azyw.onrender.com/api/volunteers");
       setVolunteers(res.data.volunteers);
     } catch (err) {
       console.log(err);
@@ -37,7 +37,7 @@ function VolunteerForm() {
 
     try {
       await axios.post(
-        "http://localhost:5000/api/volunteer",
+        "https://resqai-azyw.onrender.com/api/volunteer",
         formData
       );
 
@@ -63,7 +63,7 @@ function VolunteerForm() {
 
     try {
       await axios.delete(
-        `http://localhost:5000/api/volunteer/${id}`
+        `https://resqai-azyw.onrender.com/api/volunteer/${id}`
       );
 
       fetchVolunteers();

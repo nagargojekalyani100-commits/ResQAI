@@ -27,7 +27,7 @@ function ReportForm() {
 
     try {
       const response = await axios.post(
-  "http://localhost:5000/api/report",
+  "https://resqai-azyw.onrender.com/api/report",
   formData
 );
 
