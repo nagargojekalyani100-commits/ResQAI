@@ -52,7 +52,12 @@ const sendEmergencyEmail = async (report, aiAnalysis) => {
     `,
   };
 
-  await transporter.sendMail(mailOptions);
+  try {
+  const info = await transporter.sendMail(mailOptions);
+  console.log("✅ Email sent:", info.response);
+} catch (err) {
+  console.error("❌ Email Error:", err);
+}
 };
 
 module.exports = sendEmergencyEmail;
