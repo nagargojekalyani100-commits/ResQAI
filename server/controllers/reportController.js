@@ -41,6 +41,11 @@ try {
 } catch (err) {
     console.log("Email Error:", err.message);
 }
+console.log("➡️ About to send email");
+
+await sendEmergencyEmail(reportData, aiResult);
+
+console.log("✅ sendEmergencyEmail finished");
 
     res.status(201).json({
       success: true,

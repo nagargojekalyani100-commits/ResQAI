@@ -61,7 +61,32 @@ app.get("/test-ai", async (req, res) => {
     });
   }
 });
+const sendEmergencyEmail = require("./services/emailService");
 
+app.get("/test-email", async (req, res) => {
+  try {
+    await sendEmergencyEmail(
+      {
+        disasterType: "Test",
+        location: "Mumbai",
+        description: "Testing email",
+        peopleAffected: 1,
+      },
+      {
+        riskLevel: "LOW",
+        riskScore: 10,
+        summary: "Test Summary",
+        emergencyMessage: "This is a test email.",
+        actions: ["Test Action"],
+      }
+    );
+
+    res.send("✅ Email Sent");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(err.message);
+  }
+});
 // Start Server
 const PORT = process.env.PORT || 5000;
 
