@@ -1,14 +1,21 @@
 const nodemailer = require("nodemailer");
+const dns = require("dns");
+
+// Force Node.js to use IPv4 instead of IPv6
+dns.setDefaultResultOrder("ipv4first");
 
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 465,
   secure: true,
+  family: 4, // Force IPv4
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
   },
 });
+
+// Verify SMTP connection
 transporter.verify(function (error, success) {
   if (error) {
     console.log("❌ Transport Error:", error);
@@ -21,7 +28,7 @@ const sendEmergencyEmail = async (report, aiAnalysis) => {
   const mailOptions = {
     from: process.env.EMAIL_USER,
 
-    // Change this to the email that should receive alerts.
+    // Email receiver
     to: "nagargojekalyani100@gmail.com",
 
     subject: `🚨 Disaster Alert - ${report.disasterType}`,
@@ -62,19 +69,21 @@ const sendEmergencyEmail = async (report, aiAnalysis) => {
   };
 
   try {
-  const info = await transporter.sendMail(mailOptions);
+    console.log("📧 Sending email to:", mailOptions.to);
 
-console.log("=========== EMAIL INFO ===========");
-console.log("Accepted:", info.accepted);
-console.log("Rejected:", info.rejected);
-console.log("Envelope:", info.envelope);
-console.log("Message ID:", info.messageId);
-console.log("Response:", info.response);
-console.log("=================================");
-}catch (err) {
-  console.error("❌ Email Error:", err);
-  throw err;
-}
+    const info = await transporter.sendMail(mailOptions);
+
+    console.log("=========== EMAIL INFO ===========");
+    console.log("Accepted:", info.accepted);
+    console.log("Rejected:", info.rejected);
+    console.log("Envelope:", info.envelope);
+    console.log("Message ID:", info.messageId);
+    console.log("Response:", info.response);
+    console.log("=================================");
+  } catch (err) {
+    console.error("❌ Email Error:", err);
+    throw err;
+  }
 };
 
 module.exports = sendEmergencyEmail;
