@@ -80,7 +80,6 @@ const sendEmergencyEmail = async (report, aiAnalysis) => {
     console.log("=================================");
   } catch (err) {
     console.error("❌ Email Error:", err);
-    throw err;
   }
 };
 

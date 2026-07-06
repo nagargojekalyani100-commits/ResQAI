@@ -36,18 +36,12 @@ reportData.aiAnalysis = aiResult;
 const report = await Report.create(reportData);
 
 // Send email after saving
-console.log("📧 Email notification skipped.");
-console.log("➡️ About to send email");
-
-//await sendEmergencyEmail(reportData, aiResult);
-
-const info = await transporter.sendMail(mailOptions);
-
-console.log("Accepted:", info.accepted);
-console.log("Rejected:", info.rejected);
-console.log("Envelope:", info.envelope);
-console.log("Message ID:", info.messageId);
-console.log("Response:", info.response);;
+try {
+    await sendEmergencyEmail(reportData, aiResult);
+    console.log("✅ Email function completed");
+} catch (err) {
+    console.log("❌ Email failed:", err.message);
+}
 
     res.status(201).json({
       success: true,
