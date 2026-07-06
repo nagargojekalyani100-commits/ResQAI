@@ -36,11 +36,7 @@ reportData.aiAnalysis = aiResult;
 const report = await Report.create(reportData);
 
 // Send email after saving
-try {
-    await sendEmergencyEmail(reportData, aiResult);
-} catch (err) {
-    console.log("Email Error:", err.message);
-}
+console.log("📧 Email notification skipped.");
 console.log("➡️ About to send email");
 
 await sendEmergencyEmail(reportData, aiResult);
