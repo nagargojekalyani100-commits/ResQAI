@@ -39,7 +39,7 @@ const report = await Report.create(reportData);
 console.log("📧 Email notification skipped.");
 console.log("➡️ About to send email");
 
-await sendEmergencyEmail(reportData, aiResult);
+//await sendEmergencyEmail(reportData, aiResult);
 
 const info = await transporter.sendMail(mailOptions);
 
