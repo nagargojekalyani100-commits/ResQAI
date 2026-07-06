@@ -1,24 +1,22 @@
 const nodemailer = require("nodemailer");
-const dns = require("dns");
-
-// Force Node.js to use IPv4 instead of IPv6
-dns.setDefaultResultOrder("ipv4first");
 
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
-  port: 465,
-  secure: true,
-  family: 4, // Force IPv4
+  port: 587,
+  secure: false, // TLS
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
+  },
+  tls: {
+    rejectUnauthorized: false,
   },
 });
 
 // Verify SMTP connection
 transporter.verify(function (error, success) {
   if (error) {
-    console.log("❌ Transport Error:", error);
+    console.error("❌ Transport Error:", error);
   } else {
     console.log("✅ SMTP Server is ready");
   }
@@ -28,7 +26,7 @@ const sendEmergencyEmail = async (report, aiAnalysis) => {
   const mailOptions = {
     from: process.env.EMAIL_USER,
 
-    // Email receiver
+    // Receiver email
     to: "nagargojekalyani100@gmail.com",
 
     subject: `🚨 Disaster Alert - ${report.disasterType}`,
