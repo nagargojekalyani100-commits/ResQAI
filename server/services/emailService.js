@@ -71,8 +71,9 @@ console.log("Envelope:", info.envelope);
 console.log("Message ID:", info.messageId);
 console.log("Response:", info.response);
 console.log("=================================");
-} catch (err) {
+}catch (err) {
   console.error("❌ Email Error:", err);
+  throw err;
 }
 };
 
